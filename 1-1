@@ -1,13 +1,13 @@
-import csv
+fileName = r'C:\Users\karlh\Desktop\AOC2021\1-1.txt'
+file = open(fileName)
+content = file.read().split('\n')
+content = list(map(int, content))
 
-with open(r'C:\Users\karlh\Desktop\AOC2021\1-1.csv', newline='') as csvContents:
-    reader = csv.reader(csvContents)
-    listOfDepths = list(reader)
+counter = 0
 
-deeperCount = 0
+for position, value in enumerate(content[:-1]):
+    nextValue = content[position + 1]
+    if value < nextValue:
+        counter += 1
 
-for i, j in enumerate(listOfDepths):
-    if j > listOfDepths[i - 1]:
-        deeperCount += 1
-
-print('Number of times gone deeper: ' + str(deeperCount))
+print(counter)
