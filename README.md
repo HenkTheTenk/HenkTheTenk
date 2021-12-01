@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @HenkTheTenk
 - 👀 I’m interested in hot singles in my area
-- 🌱 I’m currently learning to love
+- 🌱 I’m currently learning how to love
 - 💞️ I’m looking to collaborate on literally anything
 - 📫 How to reach me is a mystery
 
