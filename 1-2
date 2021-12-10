@@ -1,0 +1,17 @@
+fileName = r'C:\Users\karlh\Desktop\AOC2021\1-1.txt'
+file = open(fileName)
+content = file.read().split('\n')
+content = list(map(int, content))
+
+counter = 0
+
+for position, value in enumerate(content[:-3]):
+    secondValue = content[position + 1]
+    thirdValue = content[position + 2]
+    fourthValue = content[position + 3]
+    sumOfCurrentDive = value + secondValue + thirdValue
+    sumOfNextDive = secondValue + thirdValue + fourthValue
+    if sumOfCurrentDive < sumOfNextDive:
+        counter += 1
+
+print(counter)
