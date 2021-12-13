@@ -1,0 +1,66 @@
+fileName = r'C:\Users\karlh\Desktop\AOC2021\3-1.txt'
+file = open(fileName)
+content = file.read().split('\n')
+content = list(content)
+generator = content
+scrubber = content
+
+zeroCount = 0
+oneCount = 0
+
+generatorNumbers = []
+scrubberNumbers = []
+
+for x in range(len(generator[0])):
+    for value in generator:
+        if int(value[x]) == 1:
+            oneCount += 1
+        elif int(value[x]) == 0:
+            zeroCount += 1
+
+    if oneCount > zeroCount:
+        for position, value in enumerate(generator):
+            if int(value[x]) == 1:
+                generatorNumbers.append(value)
+                generator.pop(position)
+    elif oneCount < zeroCount:
+        for position, value in enumerate(generator):
+            if int(value[x]) == 0:
+                generatorNumbers.append(value)
+                generator.pop(position)
+    elif oneCount == zeroCount:
+        for position, value in enumerate(generator):
+            if int(value[x]) == 1:
+                generatorNumbers.append(value)
+                generator.pop(position)
+
+for x in range(len(scrubber[0])):
+    for value in scrubber:
+        if int(value[x]) == 1:
+            oneCount += 1
+        elif int(value[x]) == 0:
+            zeroCount += 1
+
+    if oneCount > zeroCount:
+        for position, value in enumerate(scrubber):
+            if int(value[x]) == 1:
+                scrubberNumbers.append(value)
+                scrubber.pop(position)
+    elif oneCount < zeroCount:
+        for position, value in enumerate(scrubber):
+            if int(value[x]) == 0:
+                scrubberNumbers.append(value)
+                scrubber.pop(position)
+    elif oneCount == zeroCount:
+        for position, value in enumerate(scrubber):
+            if int(value[x]) == 1:
+                scrubberNumbers.append(value)
+                scrubber.pop(position)
+
+
+generatorRating = int(generatorNumbers[-1], 2)
+scrubberRating = int(scrubberNumbers[-1], 2)
+
+result = generatorRating * scrubberRating
+
+print(result)
