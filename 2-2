@@ -1,0 +1,26 @@
+fileName = r'C:\Users\karlh\Desktop\AOC2021\2-1.txt'
+file = open(fileName)
+content = file.read().split('\n')
+content = list(content)
+
+movement = 0
+aim = 0
+horizon = 0
+depth = 0
+
+for item in content:
+    splitItem = item.split()
+    direction = splitItem[0]
+    value = int(splitItem[1])
+
+    if direction == 'down':
+        aim += value
+    elif direction == 'up':
+        aim -= value
+    elif direction == 'forward':
+        horizon += value
+        depth += (aim * value)
+
+result = horizon * depth
+
+print(result)
