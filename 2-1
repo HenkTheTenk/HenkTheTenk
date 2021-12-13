@@ -1,0 +1,23 @@
+fileName = r'C:\Users\karlh\Desktop\AOC2021\2-1.txt'
+file = open(fileName)
+content = file.read().split('\n')
+content = list(content)
+
+horizontalMeasurement = 0
+depthMeasurement = 0
+
+for value in content:
+    splitValue = value.split()
+    direction = splitValue[0]
+    units = int(splitValue[1])
+
+    if direction == 'forward':
+        horizontalMeasurement += units
+    elif direction == 'up':
+        depthMeasurement -= units
+    elif direction == 'down':
+        depthMeasurement += units
+
+result = horizontalMeasurement * depthMeasurement
+print('Depth: ' + str(depthMeasurement) + '\n' + 'Horizontal: ' + str(horizontalMeasurement))
+print('Answer: ' + str(result))
