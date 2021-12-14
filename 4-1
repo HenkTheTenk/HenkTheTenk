@@ -1,0 +1,48 @@
+boardsFilePath = r'C:\Users\karlh\Desktop\AOC2021\4-1\boards.txt'
+boardsFile = open(boardsFilePath)
+boards = boardsFile.read().split('\n\n')
+
+digitsFilePath = r'C:\Users\karlh\Desktop\AOC2021\4-1\numbers.txt'
+digitsFile = open(digitsFilePath)
+digits = digitsFile.read().split(',')
+
+for position, value in enumerate(boards):
+    boards[position] = value.split()
+
+def board_has_won(a_board):
+    for i in range(5):
+        column = a_board[i::5]
+        if ''.join(column) == '*****':
+            return True
+
+    for i in range(0, 30, 5):
+        line = a_board[i:i+5]
+        if ''.join(line) == '*****':
+            return True
+
+    return False
+
+def return_winning_board(a_board):
+    sum_of_values = 0
+    for value in a_board:
+        if value != "*":
+            sum_of_values += int(value)
+
+    return sum_of_values
+
+winning_board = 0
+winning_number = 0
+winning_board_found = False
+
+for digit in digits:
+    for board in boards:
+        for num_index, numbers in enumerate(board):
+            if numbers == digit:
+                board[num_index] = numbers.replace(numbers, '*')
+                if board_has_won(board) == True:
+                    winning_board = return_winning_board(board)
+                    winning_board_found = True
+    winning_number = digit
+    if winning_board_found == True: break
+
+print(winning_board, r"*", winning_number, "=", (int(winning_board)*int(winning_number)))
