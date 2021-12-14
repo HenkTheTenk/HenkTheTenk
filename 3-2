@@ -1,66 +1,46 @@
 fileName = r'C:\Users\karlh\Desktop\AOC2021\3-1.txt'
 file = open(fileName)
-content = file.read().split('\n')
-content = list(content)
-generator = content
-scrubber = content
+fileContent = file.read().split('\n')
+fileContent = list(fileContent)
 
-zeroCount = 0
-oneCount = 0
+def getLastBinary(binaries, genOrScrub):
 
-generatorNumbers = []
-scrubberNumbers = []
+    oneCount = 0
+    zeroCount = 0
 
-for x in range(len(generator[0])):
-    for value in generator:
-        if int(value[x]) == 1:
-            oneCount += 1
-        elif int(value[x]) == 0:
-            zeroCount += 1
-
-    if oneCount > zeroCount:
-        for position, value in enumerate(generator):
+    for x in range(12):
+        for value in binaries:
             if int(value[x]) == 1:
-                generatorNumbers.append(value)
-                generator.pop(position)
-    elif oneCount < zeroCount:
-        for position, value in enumerate(generator):
-            if int(value[x]) == 0:
-                generatorNumbers.append(value)
-                generator.pop(position)
-    elif oneCount == zeroCount:
-        for position, value in enumerate(generator):
-            if int(value[x]) == 1:
-                generatorNumbers.append(value)
-                generator.pop(position)
+                oneCount += 1
+            elif int(value[x]) == 0:
+                zeroCount += 1
 
-for x in range(len(scrubber[0])):
-    for value in scrubber:
-        if int(value[x]) == 1:
-            oneCount += 1
-        elif int(value[x]) == 0:
-            zeroCount += 1
+        if genOrScrub == "generate":
+            if oneCount > zeroCount:
+                targetBit = 1
+            elif oneCount < zeroCount:
+                targetBit = 0
+            elif oneCount == zeroCount:
+                targetBit = 1
+            binaries = list(filter(lambda y: (int(y[x]) != targetBit), binaries))
 
-    if oneCount > zeroCount:
-        for position, value in enumerate(scrubber):
-            if int(value[x]) == 1:
-                scrubberNumbers.append(value)
-                scrubber.pop(position)
-    elif oneCount < zeroCount:
-        for position, value in enumerate(scrubber):
-            if int(value[x]) == 0:
-                scrubberNumbers.append(value)
-                scrubber.pop(position)
-    elif oneCount == zeroCount:
-        for position, value in enumerate(scrubber):
-            if int(value[x]) == 1:
-                scrubberNumbers.append(value)
-                scrubber.pop(position)
+        elif genOrScrub == "scrub":
+            if oneCount > zeroCount:
+                targetBit = 0
+            elif oneCount < zeroCount:
+                targetBit = 1
+            elif oneCount == zeroCount:
+                targetBit = 0
+            binaries = list(filter(lambda y: (int(y[x]) != targetBit), binaries))
 
+        if len(binaries) == 1:
+            return binaries[0]
 
-generatorRating = int(generatorNumbers[-1], 2)
-scrubberRating = int(scrubberNumbers[-1], 2)
+        oneCount = 0
+        zeroCount = 0
 
-result = generatorRating * scrubberRating
+generatorBinary = getLastBinary(fileContent, "generate")
+scrubberBinary = getLastBinary(fileContent, "scrub")
 
+result = int(generatorBinary, 2) * int(scrubberBinary, 2)
 print(result)
